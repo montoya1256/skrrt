@@ -20,18 +20,19 @@ function LoginFormPage() {
     return dispatch(sessionActions.login({ credential, password })).catch(
       async (res) => {
         const data = await res.json();
+        console.log('errors 1',data.errors)
         if (data && data.errors) setErrors(data.errors);
       }
-    );
+      );
   };
 
   return (
     <div className="center">
       <h1>Login</h1>
       <form onSubmit={handleSubmit}>
-        <ul>
+      <ul>
           {errors.map((error, idx) => (
-            <li key={idx}>{error}</li>
+            <li className='error-msg' key={idx}>{error}</li>
           ))}
         </ul>
         <div className='login-field'>
@@ -41,7 +42,6 @@ function LoginFormPage() {
             onChange={(e) => setCredential(e.target.value)}
             required
           />
-          <span></span>
           <label>Username or Email</label>
         </div>
         <div className='login-field'>
@@ -51,12 +51,11 @@ function LoginFormPage() {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <span></span>
           <label>Password</label>
         </div>
         <button type="submit">Log In</button>
         <div className='signup-link'>
-            Not a member? <NavLink to="/signup">Signup</NavLink>
+            Not a member? <NavLink to="/signup">Signup up here.</NavLink>
         </div>
       </form>
     </div>
