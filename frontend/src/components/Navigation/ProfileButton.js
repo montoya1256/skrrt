@@ -30,20 +30,23 @@ function ProfileButton({ user }) {
   };
 
   return (
-    <div className='navbar-right isLoaded-links'>
-      <button onClick={openMenu}>
-        <i className="fas fa-user-circle" />
-      </button>
-      {showMenu && (
-        <div className="profile-dropdown">
+    <div>
+      <div className="navbar-right navBar__dropdown--isLoaded-links">
+        <button className={`dropdown-btn`} onClick={openMenu}>
+          {/* <i className="fas fa-user-circle" /> */}
+          Button
+        </button>
+        <div className={`profile-dropdown ${showMenu ? "" : "hidden"}`}>
           <NavLink to="/">{user.username}</NavLink>
           <NavLink to="/">{user.email}</NavLink>
           <label onClick={logout}>Log Out</label>
         </div>
-      )}
-      <div>
-        <NavLink to='/'>Upload</NavLink>
       </div>
+      <ul className="navbar--links-container">
+        <li className="upload-btn">
+          <NavLink to="/">Upload</NavLink>
+        </li>
+      </ul>
     </div>
   );
 }

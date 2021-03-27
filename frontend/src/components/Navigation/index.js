@@ -12,11 +12,11 @@ function Navigation({ isLoaded }) {
     sessionLinks = <ProfileButton user={sessionUser} />;
   } else {
     sessionLinks = (
-      <div className='navbar-right navbar--links-container'>
-        <li>
+      <div className='navbar--links-container'>
+        <li className='session-links-login'>
           <NavLink to="/login">Log In</NavLink>
         </li>
-        <li>
+        <li className='session-links'>
           <NavLink to="/signup">Sign Up</NavLink>
         </li>
       </div>
@@ -28,8 +28,8 @@ function Navigation({ isLoaded }) {
     <nav className='navbar'>
       <div className="icon">Skrrt</div>
       <div className="search-box">
-        <input type="search" placeholder="search"></input>
         <span className="fa fa-search"></span>
+        <input type="search" placeholder="search"></input>
       </div>
       <div>
       </div>
