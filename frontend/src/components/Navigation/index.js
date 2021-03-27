@@ -2,6 +2,8 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ProfileButton from "./ProfileButton";
+
+import logo from '../../images/skrrt-logo.png'
 import "./Navigation.css";
 
 function Navigation({ isLoaded }) {
@@ -26,7 +28,9 @@ function Navigation({ isLoaded }) {
   return (
     <div>
     <nav className='navbar'>
-      <div className="icon">Skrrt</div>
+      <NavLink className='icon' to="/">
+        <img className='icon-img' src={logo} alt='logo'></img>
+      </NavLink>
       <div className="search-box">
         <span className="fa fa-search"></span>
         <input type="search" placeholder="search"></input>
