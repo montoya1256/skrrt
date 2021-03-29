@@ -17,6 +17,10 @@
   opacity: 0.7;
 }
 
+.home-btn,
+.hamburger-icon {
+  display: none;
+}
 
 .navbar--links-container {
   display: flex;
@@ -155,3 +159,70 @@
   margin-top: 35px;
   margin-right: 20px;
 }
+
+@media screen and (max-width: 790px) and (min-width: 580px){
+  .icon-img {
+    display: none;
+  }
+
+  .search-box input {
+    margin-right: 300px;
+  }
+
+  .navbar {
+    height: 85px;
+  }
+  .home-btn {
+    display: block;
+    font-size: 35px;
+    margin-top:15px;
+    color: white;
+  }
+
+  .home-btn:hover {
+    opacity: .7;
+  }
+
+}
+
+/* Make media query to make sign up or login links appear when
+fa fas-bars are clicked */
+
+/* @media screen and (max-width: 580px ) {
+  .icon-img {
+    display: none;
+  }
+
+  .hamburger-icon {
+    display: block;
+    position: absolute;
+    color: white;
+    top: 35px;
+    right: 20px;
+    font-size: 26px;
+  }
+
+  .home-btn {
+    display: block;
+    font-size: 35px;
+    margin-top:15px;
+    color: white;
+  }
+
+  .home-btn:hover {
+    opacity: .7;
+  }
+
+  .navbar {
+    height: 85px;
+  }
+
+  .search-box input {
+    margin-right: 300px;
+  }
+
+  .session-links {
+    display: block;
+  }
+
+} */

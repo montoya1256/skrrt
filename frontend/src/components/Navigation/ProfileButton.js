@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import * as sessionActions from "../../store/session";
-import cameraIcon from '../../images/camera-icon.jpg'
+import cameraIcon from "../../images/camera-icon.jpg";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -33,7 +33,12 @@ function ProfileButton({ user }) {
   return (
     <div>
       <div className="navbar-right navBar__dropdown--isLoaded-links">
-          <img className='camera-icon' src={cameraIcon} onClick={openMenu}></img>
+        <img
+          className="camera-icon"
+          src={cameraIcon}
+          onClick={openMenu}
+          alt="profile button"
+        ></img>
         <div className={`profile-dropdown ${showMenu ? "" : "hidden"}`}>
           <NavLink to="/">{user.username}</NavLink>
           <NavLink to="/">{user.email}</NavLink>
