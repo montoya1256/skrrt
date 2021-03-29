@@ -16,6 +16,7 @@ const removeUser = () => {
   };
 };
 
+
 export const login = (user) => async (dispatch) => {
   const { credential, password } = user;
   const response = await csrfFetch("/api/session", {
@@ -73,6 +74,8 @@ const sessionReducer = (state = initialState, action) => {
       newState = Object.assign({}, state);
       newState.user = null;
       return newState;
+    // case SET_USER:
+    //   return { ...state, user: action.payload };
     default:
       return state;
   }
