@@ -2,6 +2,7 @@ import { csrfFetch } from "./csrf";
 
 const SET_IMAGE = "photos/setImage";
 const LOAD = "photos/loadPhotos";
+const FIND_ONE = "photos/FindOne"
 
 const setImage = (image) => ({
   type: SET_IMAGE,
@@ -12,6 +13,19 @@ const load = (list) => ({
   type: LOAD,
   list,
 });
+
+const findImage = image => ({
+  type: FIND_ONE,
+  image
+})
+
+export const getImageDetail = (photoId) => async (dispatch) => {
+  const response = await fetch(`/api/photos/${photoId}`);
+  if(response.ok) {
+    const detail = await response.json();
+    dispatch(findImage(detail))
+  }
+}
 
 export const createImage = (newImage) => async (dispatch) => {
   const { images, image, title, description, userId, albumId } = newImage;
@@ -63,6 +77,24 @@ const imageReducer = (state = {}, action) => {
         ...allPhotos,
         ...state,
         list: action.list
+      }
+    }
+    case FIND_ONE: {
+      if (!state[action.photo.id]) {
+        const newState = {
+          ...state,
+          [action.photo.id]: action.photo
+        };
+        const imageList = newState.list.map(id => newState[id]);
+        imageList.push(action.photo);
+        return newState
+      }
+      return {
+        ...state,
+        [action.photo.id]: {
+          ...state[action.photo.id],
+          ...action.pokemon,
+        }
       }
     }
     case SET_IMAGE:

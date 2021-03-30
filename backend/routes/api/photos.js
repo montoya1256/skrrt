@@ -8,7 +8,6 @@ const { handleValidationErrors } = require("../../utils/validation");
 
 const { singlePublicFileUpload, singleMulterUpload } = require("../../awsS3");
 
-
 const router = express.Router();
 
 const validateImage = [
@@ -22,7 +21,7 @@ const validateImage = [
   // check("image")
   //   .exists({ checkFalsy: true })
   //   .withMessage("Please select a photo to import"),
-  handleValidationErrors
+  handleValidationErrors,
 ];
 
 router.post(
@@ -38,21 +37,28 @@ router.post(
       description,
       photo_url: carImageUrl,
       userId,
-      albumId
-    })
+      albumId,
+    });
     return res.json({
       carImage,
-    })
+    });
   })
 );
 
+router.get(
+  "/",
+  asyncHandler(async (req, res) => {
+    const photos = await Photo.findAll();
+    return res.json(photos);
+  })
+);
 
-router.get('/', asyncHandler(async (req, res) => {
-  const photos = await Photo.findAll()
-  console.log('Please find me \n -----------------------------------------')
-  console.log('Please find meeee \n -----------------------------------------',photos)
-  console.log('Pldsadasease find me \n -----------------------------------------',res.json(photos))
-  return res.json(photos)
-}));
+router.get(
+  "/:id",
+  asyncHandler(async (req, res) => {
+    const photo = await Photo.findByPk(req.params.id);
+    return res.json(photo)
+  })
+);
 
 module.exports = router;
