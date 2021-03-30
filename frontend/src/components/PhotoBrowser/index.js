@@ -5,8 +5,9 @@ import { getPhotos } from '../../store/photos';
 function PhotoBrowser() {
   const dispatch = useDispatch();
 
-  const photo = useSelector(state => {
-    console.log(state.photo)
+  const photoUrl = useSelector(state => {
+    // console.log(state.photo.list)
+    return state.photo.list?.map(photo => <img src={photo.photo_url} alt={photo.title}></img>)
     // return state.photo.list.map(photoId => state.photo[photoId])
   })
 
@@ -17,6 +18,9 @@ function PhotoBrowser() {
   return (
     <div>
       <h1>Explore</h1>
+      <div>
+        <div>{photoUrl}</div>
+      </div>
     </div>
   )
 }

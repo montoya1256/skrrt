@@ -28,7 +28,7 @@ function Navigation({ isLoaded }) {
   return (
     <div>
       <nav className="navbar">
-        <NavLink className="icon" to="/">
+        <NavLink className="icon" to="/explore">
           <i className="fas fa-home home-btn"></i>
           <img className="icon-img" src={logo} alt="logo"></img>
         </NavLink>
