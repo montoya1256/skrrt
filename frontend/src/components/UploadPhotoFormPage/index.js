@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {useHistory} from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
 import * as photoActions from "../../store/photos";
 import styles from "./uploadImageForm.module.css";
@@ -6,6 +7,7 @@ import styles from "./uploadImageForm.module.css";
 function UploadPhotoFormPage() {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
+  const history = useHistory()
 
   const [image, setImage] = useState(null);
   const [title, setTitle] = useState("");
@@ -28,6 +30,8 @@ function UploadPhotoFormPage() {
         setTitle("");
         setDescription("");
         setImage(null);
+        setFile(null)
+        history.push('/')
       })
       .catch(async (res) => {
         const data = await res.json();
@@ -36,6 +40,7 @@ function UploadPhotoFormPage() {
           setErrors(newErrors);
         }
       });
+
   };
 
   const updateFile = (e) => {
@@ -54,10 +59,9 @@ function UploadPhotoFormPage() {
   const cancelUpload = () => {
     setImage(null);
     setFile(null);
-    setTitle('')
-    setDescription('')
-  }
-
+    setTitle("");
+    setDescription("");
+  };
 
   return (
     <div className={styles.container}>
@@ -89,6 +93,12 @@ function UploadPhotoFormPage() {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           ></input>
+          <textarea
+            className={styles.text_area}
+            placeholder="DESCRIPTION"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          ></textarea>
         </div>
         <input
           className={styles.default_btn}
@@ -96,48 +106,13 @@ function UploadPhotoFormPage() {
           onChange={updateFile}
           ref={hiddenFileInput}
         ></input>
-        <button type="submit">Upload Picture</button>
+        <button type="submit" className={`${styles.upload_btn} ${image ? styles.upload : ''}`}>Upload Picture</button>
       </form>
-        <button onClick={defaultBtnActive} className={styles.custom_btn}>
-          Choose a file
-        </button>
+      <button onClick={defaultBtnActive} className={styles.custom_btn}>
+        Choose a file
+      </button>
     </div>
   );
-
-  // return (
-  //   <div className="center">
-  //     <h1>Choose Photos to Upload</h1>
-  //     <form onSubmit={handleSubmit}>
-  //       <ul>
-  //         {errors.map((error, idx) => (
-  //           <li className="error-msg" key={idx}>
-  //             {error}
-  //           </li>
-  //         ))}
-  //       </ul>
-  //       <div className="photo_url-field">
-  //         <input type="file" onChange={updateFile} />
-  //         <label>Import a photo here</label>
-  //       </div>
-  //       <div className="image-field">
-  //         <input
-  //           type="text"
-  //           value={title}
-  //           onChange={(e) => setTitle(e.target.value)}
-  //         />
-  //         <label>Title</label>
-  //       </div>
-  //       <div className="image-field">
-  //         <textarea
-  //           value={description}
-  //           onChange={(e) => setDescription(e.target.value)}
-  //         />
-  //         <label>Description</label>
-  //       </div>
-  //       <button type="submit">Upload Photo</button>
-  //     </form>
-  //   </div>
-  // );
 }
 
 export default UploadPhotoFormPage;

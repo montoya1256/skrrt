@@ -58,7 +58,7 @@
 .wrapper .cancel_btn {
   position: absolute;
   right: 15px;
-  top: 15px;
+  top: 39px;
   font-size: 20px;
   cursor: pointer;
   color: #9658fe;
@@ -74,7 +74,7 @@
 
 .wrapper .file_name{
   position: absolute;
-  bottom: 0px;
+  top: 0;
   width: 100%;
   color: #fff;
   padding: 8px 0;
@@ -86,12 +86,44 @@
   display: none;
 }
 
+.wrapper .text_area{
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  outline: none;
+  border: none;
+  background: linear-gradient(135deg, #3a8ffe 0%, #9658fe 100%);
+  color: white;
+  height: 50px;
+  display: none;
+}
+
+.wrapper.active:hover .text_area {
+  display: block;
+}
+
+.wrapper .text_area::placeholder{
+  color: white;
+  opacity: .7;
+  text-align: center;
+  font-size: 30px;
+  margin-left: 10px;
+}
+
 .wrapper.active:hover .file_name {
   display: block;
 }
 
 .default_btn {
   display: none;
+}
+
+.upload_btn {
+  display: none;
+}
+
+.upload_btn.upload {
+  display: block;
 }
 
 .container .custom_btn {
