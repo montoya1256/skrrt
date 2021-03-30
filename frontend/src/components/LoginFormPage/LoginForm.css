@@ -4,12 +4,13 @@ body {
   font-family: montserrat;
   /* background: linear-gradient(120deg, #2980b9, #8e44ad); */
   /* background-color: #f3f5f6; */
-  background-image: url('../../images/login-signup-bkgrnd-img.jpg');
+  /* background-image: url('../../images/login-signup-bkgrnd-img.jpg'); */
   height: 100vh;
-  overflow: hidden;
+  /* overflow: hidden; */
   background-repeat: no-repeat;
   background-size: cover;
 }
+
 
 .center {
   position: absolute;

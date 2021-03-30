@@ -7,6 +7,7 @@ import SignupFormPage from "./components/SignupFormPage";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import PhotoBrowser from "./components/PhotoBrowser";
+import Image from './components/PhotoBrowser/image'
 
 function App() {
   const dispatch = useDispatch();
@@ -31,6 +32,7 @@ function App() {
           </Route>
           <Route path='/explore'>
             <PhotoBrowser />
+            <Image />
           </Route>
         </Switch>
       )}

@@ -96,6 +96,8 @@
   color: white;
   height: 50px;
   display: none;
+  text-align: center;
+
 }
 
 .wrapper.active:hover .text_area {

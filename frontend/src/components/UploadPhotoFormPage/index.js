@@ -33,7 +33,7 @@ function UploadPhotoFormPage() {
         setDescription("");
         setImage(null);
         setFile(null)
-        history.push('/')
+        history.push('/explore')
       })
       .catch(async (res) => {
         const data = await res.json();
