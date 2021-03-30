@@ -47,7 +47,7 @@ function ProfileButton({ user }) {
       </div>
       <ul className="navbar--links-container">
         <li className="upload-btn">
-          <NavLink to="/">Upload</NavLink>
+          <NavLink to="/upload">Upload</NavLink>
         </li>
       </ul>
     </div>

@@ -17,11 +17,7 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
     description: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        len: [0, 256],
-      },
+      type: DataTypes.STRING
     },
     userId: {
       type: DataTypes.STRING,

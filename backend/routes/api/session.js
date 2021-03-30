@@ -68,6 +68,7 @@ router.delete("/", (_req, res) => {
 });
 
 router.get("/", restoreUser, (req, res) => {
+
   const {
     user
   } = req;
