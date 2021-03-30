@@ -24,6 +24,8 @@ function UploadPhotoFormPage() {
         description,
         image,
         userId: sessionUser.id,
+        // this needs to change to make it for a specific album
+        albumId: sessionUser.id
       })
     )
       .then(() => {

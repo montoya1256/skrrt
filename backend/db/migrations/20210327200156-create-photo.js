@@ -24,6 +24,11 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {model: 'Users'}
       },
+      albumId: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {model: 'Photos'}
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

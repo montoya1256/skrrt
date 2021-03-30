@@ -30,17 +30,16 @@ router.post(
   singleMulterUpload("image"),
   validateImage,
   asyncHandler(async (req, res) => {
-    console.log('hello -----------------------------------------')
-    const { title, description, userId } = req.body;
+    // console.log('hello -----------------------------------------')
+    const { title, description, userId, albumId } = req.body;
     const carImageUrl = await singlePublicFileUpload(req.file);
-    // console.log('looking for this ---------------- \n', carImageUrl)
     const carImage = await Photo.create({
       title,
       description,
       photo_url: carImageUrl,
-      userId
+      userId,
+      albumId
     })
-    // console.log('Where is this lol ---------------- \n', carImage)
     return res.json({
       carImage,
     })
@@ -49,8 +48,11 @@ router.post(
 
 
 router.get('/', asyncHandler(async (req, res) => {
-  const photos = await Photo.findAll({})
-  return res.json({photos})
+  const photos = await Photo.findAll()
+  console.log('Please find me \n -----------------------------------------')
+  console.log('Please find meeee \n -----------------------------------------',photos)
+  console.log('Pldsadasease find me \n -----------------------------------------',res.json(photos))
+  return res.json(photos)
 }));
 
 module.exports = router;

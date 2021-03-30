@@ -6,6 +6,7 @@ import UploadPhotoFormPage from "./components/UploadPhotoFormPage";
 import SignupFormPage from "./components/SignupFormPage";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
+import PhotoBrowser from "./components/PhotoBrowser";
 
 function App() {
   const dispatch = useDispatch();
@@ -27,6 +28,9 @@ function App() {
           </Route>
           <Route path='/upload'>
             <UploadPhotoFormPage />
+          </Route>
+          <Route path='/explore'>
+            <PhotoBrowser />
           </Route>
         </Switch>
       )}

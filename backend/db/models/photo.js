@@ -23,10 +23,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
+    albumId: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
   }, {});
   Photo.associate = function(models) {
     Photo.belongsTo(models.User, {foreignKey: 'userId'})
-    Photo.belongsTo(models.Album, {foreignKey: 'photoId'})
+    Photo.belongsTo(models.Album, {foreignKey: 'albumId'})
     Photo.hasMany(models.Comment, {foreignKey: 'photoId'})
 
     const columnMapping = {

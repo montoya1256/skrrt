@@ -19,14 +19,10 @@ module.exports = (sequelize, DataTypes) => {
     userId: {
       type: DataTypes.STRING,
       allowNull: false
-    },
-    photoId: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
+    }
   }, {});
   Album.associate = function(models) {
-    Album.hasMany(models.Photo, {foreignKey: 'photoId'})
+    Album.hasMany(models.Photo, {foreignKey: 'albumId'})
     Album.belongsTo(models.User, {foreignKey: 'userId'})
   };
   return Album;

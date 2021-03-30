@@ -16,11 +16,6 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING(256)
       },
-      photoId: {
-        allowNull: false,
-        type: Sequelize.INTEGER,
-        references: {model: 'Photos'}
-      },
       userId: {
         allowNull: false,
         type: Sequelize.INTEGER,
@@ -28,11 +23,13 @@ module.exports = {
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.fn('now'),
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.fn('now'),
       }
     });
   },
