@@ -3,7 +3,7 @@ import styles from "./PhotoDetail.module.css";
 import { NavLink, Link } from "react-router-dom";
 import { useHistory } from "react-router";
 
-function Image({ src, alt, nextPhotoId, prevPhotoId }) {
+function Image({ src, alt, nextPhotoId }) {
   const history = useHistory();
 
   const goBack = () => {
@@ -16,9 +16,6 @@ function Image({ src, alt, nextPhotoId, prevPhotoId }) {
         <i className={`fas fa-long-arrow-alt-left ${styles.leftBackArrow}`}></i>
         Back to explore
       </NavLink>
-      {/* <Link to={`/photos/${prevPhotoId}`} className={styles.leftPhotoContainer}>
-        <i className={`fas fa-angle-left ${styles.leftArrow}`}></i>
-      </Link> */}
       <button onClick={goBack} className={styles.leftPhotoContainer}>
         <i className={`fas fa-angle-left ${styles.leftArrow}`}></i>
       </button>
