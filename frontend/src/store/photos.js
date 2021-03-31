@@ -20,7 +20,7 @@ const findImage = image => ({
 })
 
 export const getImageDetail = (photoId) => async (dispatch) => {
-  const response = await fetch(`/api/photos/${photoId}`);
+  const response = await csrfFetch(`/api/photos/${photoId}`);
   if(response.ok) {
     const detail = await response.json();
     dispatch(findImage(detail))
@@ -80,22 +80,8 @@ const imageReducer = (state = {}, action) => {
       }
     }
     case FIND_ONE: {
-      if (!state[action.photo.id]) {
-        const newState = {
-          ...state,
-          [action.photo.id]: action.photo
-        };
-        const imageList = newState.list.map(id => newState[id]);
-        imageList.push(action.photo);
-        return newState
-      }
-      return {
-        ...state,
-        [action.photo.id]: {
-          ...state[action.photo.id],
-          ...action.pokemon,
-        }
-      }
+      const newState = {...state, ['currentPhoto']:action.image}
+      return newState
     }
     case SET_IMAGE:
       return { ...state, image: action.payLoad };

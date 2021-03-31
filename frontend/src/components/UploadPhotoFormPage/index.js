@@ -12,7 +12,7 @@ function UploadPhotoFormPage() {
   const [image, setImage] = useState(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [file, setFile] = useState(null);
+  const [display, setDisplay] = useState(null);
   const [errors, setErrors] = useState([]);
 
   const handleSubmit = (e) => {
@@ -32,7 +32,7 @@ function UploadPhotoFormPage() {
         setTitle("");
         setDescription("");
         setImage(null);
-        setFile(null)
+        setDisplay(null)
         history.push('/explore')
       })
       .catch(async (res) => {
@@ -48,7 +48,7 @@ function UploadPhotoFormPage() {
   const updateFile = (e) => {
     const file = e.target.files[0];
     if (file) setImage(file);
-    setFile(URL.createObjectURL(e.target.files[0]));
+    setDisplay(URL.createObjectURL(e.target.files[0]));
     setTitle(e.target.files[0].name);
   };
 
@@ -60,7 +60,7 @@ function UploadPhotoFormPage() {
 
   const cancelUpload = () => {
     setImage(null);
-    setFile(null);
+    setDisplay(null);
     setTitle("");
     setDescription("");
   };
@@ -77,7 +77,7 @@ function UploadPhotoFormPage() {
         </ul>
         <div className={`${styles.wrapper} ${image ? styles.active : ""}`}>
           <div className={styles.image}>
-            <img src={file} alt=""></img>
+            <img src={display} alt=""></img>
           </div>
           <div className="content">
             <div className={styles.icon}>

@@ -29,7 +29,7 @@ function PhotoBrowser() {
     <div>
       <div className={styles.wrapperImage}>
         {currentPosts?.map((photo) => (
-          <Image src={photo.photo_url} alt={photo.title} key={photo.id} />
+          <Image src={photo.photo_url} alt={photo.title} key={photo.id} id={photo.id}/>
         ))}
       </div>
       <Pagination
