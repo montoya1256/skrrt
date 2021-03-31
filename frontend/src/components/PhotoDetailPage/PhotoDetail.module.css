@@ -43,6 +43,7 @@
   left: 15px;
   font-size: 60px;
   color: #fff;
+  z-index: 3;
 }
 
 .leftPhotoContainer:hover .leftArrow,
@@ -56,6 +57,7 @@
   right: 15px;
   font-size: 60px;
   color: #fff;
+  z-index: 3;
 }
 
 .imageContainer {
@@ -71,16 +73,17 @@
 
 .imageContainer_image {
   position: absolute;
-  max-width: 1048px;
-  max-height: 800px;
-  left: 150px;
-}
-
-.imageContainer_image {
-  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
   border-radius: 5px;
+  max-width: 1048px;
+  max-height: 800px;
+}
+
+@media screen and (max-width: 1240px) {
+  /* .imageContainer_image {
+    max-height: 30%;
+  } */
 }
