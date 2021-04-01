@@ -18,11 +18,21 @@ function ImageDetail({ title, imgdescription, photo_url }) {
   const [editPhoto, setEditPhoto] = useState(false);
   const [newTitle, setNewTitle] = useState(title);
   const [newDescription, setNewDescription] = useState(description);
+  const [currentPhotoUser, setCurrentPhotoUser] = useState(null);
+  const [isphotoOwner, setisPhotoOwner] = useState(false);
 
   const sessionUser = useSelector((state) => state.session.user);
   const currentPhoto = useSelector((state) => state.photo.currentPhoto);
   const photoComments = useSelector((state) => state.comments.photoComments);
-  // const users = useSelector((state) => state.users)
+
+  let issphotoOwner;
+
+  if (currentPhoto?.userId === sessionUser?.id) {
+    issphotoOwner = sessionUser;
+    // setPhotoOwner(sessionUser)
+  }
+
+  // setisPhotoOwner(currentPhoto?.userId === sessionUser.id)
 
   const editThisComment = photoComments?.find(
     (comment) => comment.id === editItemId
@@ -81,11 +91,18 @@ function ImageDetail({ title, imgdescription, photo_url }) {
     });
   };
 
-  const handleDeleteImage = e => {
+  const handleDeleteImage = (e) => {
     e.preventDefault();
     dispatch(photoActions.deleteImage(photoId))
-    history.push('/explore')
-  }
+      .then(() => {
+        history.push("/explore");
+      })
+      .catch(() => {
+        let errors = [];
+        errors.push("You can't delete this photo becuase there are comments attached to it");
+        setErrors(errors);
+      });
+  };
 
   let commentContent = null;
 
@@ -132,9 +149,8 @@ function ImageDetail({ title, imgdescription, photo_url }) {
                   className={`${styles.editBTN}`}
                   type="button"
                   onClick={() => {
-                    dispatch(commentActions.deleteComment(comment.id))
-                  }
-                  }
+                    dispatch(commentActions.deleteComment(comment.id));
+                  }}
                 >
                   <i className="far fa-trash-alt"></i>
                 </button>
@@ -188,15 +204,16 @@ function ImageDetail({ title, imgdescription, photo_url }) {
     photoContent = (
       <div>
         <div className={styles.title}>{title}</div>
-        <button type="button" onClick={() => setEditPhoto(true)}>
-          Edit
-        </button>
-        <button
-          type="button"
-          onClick={handleDeleteImage}
-        >
-          <i className="far fa-trash-alt"></i>
-        </button>
+        {issphotoOwner ? (
+          <div>
+            <button type="button" onClick={() => setEditPhoto(true)}>
+              Edit
+            </button>
+            <button type="button" onClick={handleDeleteImage}>
+              <i className="far fa-trash-alt"></i>
+            </button>
+          </div>
+        ) : <span></span>}
         <p className={styles.imgdescription}>{imgdescription}</p>
       </div>
     );
@@ -206,6 +223,7 @@ function ImageDetail({ title, imgdescription, photo_url }) {
     setEditItemId(null);
     setEditComment(false);
     setEditPhoto(false);
+    setErrors([]);
     // dispatch(commentActions.editComment(commentId))
     dispatch(commentActions.getComments(photoId));
   }, [dispatch, photoId]);

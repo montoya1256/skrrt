@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     userId: DataTypes.INTEGER
   }, {});
   Comment.associate = function(models) {
-    Comment.belongsTo(models.Photo, {foreignKey: 'photoId'})
+    Comment.belongsTo(models.Photo, {foreignKey: 'photoId', onDelete: 'CASCADE'})
     Comment.belongsTo(models.User, {foreignKey: 'userId'})
   };
   return Comment;

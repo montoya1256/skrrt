@@ -3,7 +3,6 @@ import { csrfFetch } from "./csrf";
 const SET_IMAGE = "photos/setImage";
 const LOAD = "photos/loadPhotos";
 const FIND_ONE = "photos/FindOne";
-const UPDATE_IMAGE = "photos/Update";
 const REMOVE_IMAGE = "photos/Remove";
 
 const setImage = (image) => ({
