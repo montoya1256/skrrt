@@ -57,8 +57,31 @@ router.get(
   "/:id",
   asyncHandler(async (req, res) => {
     const photo = await Photo.findByPk(req.params.id);
-    return res.json(photo)
+    return res.json(photo);
   })
 );
+
+router.patch(
+  "/:photoId",
+  validateImage,
+  asyncHandler(async (req, res) => {
+    const photoId = parseInt(req.params.photoId, 10);
+    const { title, description } = req.body;
+    const newImage = await Photo.findByPk(photoId);
+    const edit = { title, description };
+    await newImage.update(edit);
+    return res.json(newImage);
+  })
+);
+
+router.delete(
+  '/:photoId',
+  asyncHandler(async(req, res) => {
+    const photoId = parseInt(req.params.photoId, 10);
+    const image = await Photo.findByPk(photoId);
+    await image.destroy();
+    return res.json({message: 'Image has been deleted'})
+  })
+)
 
 module.exports = router;
