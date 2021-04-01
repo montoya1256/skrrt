@@ -17,10 +17,6 @@ function PhotoDetailPage() {
 
   const nextPhoto = photos?.find((pic) => pic?.id > photo?.id);
 
-  const handleEdit = e => {
-    e.preventDefault();
-    console.log(e.target.id)
-  }
 
   useEffect(() => {
     dispatch(getImageDetail(photoId));
@@ -39,7 +35,6 @@ function PhotoDetailPage() {
         userId={photo?.userId}
         title={photo?.title}
         imgdescription={photo?.description}
-        handleEdit={handleEdit}
       />
     </div>
   );
