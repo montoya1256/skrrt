@@ -12,7 +12,6 @@ function ImageDetail({ title, imgdescription }) {
   const [errors, setErrors] = useState([]);
   const [editComment, setEditComment] = useState(false);
   const [editItemId, setEditItemId] = useState(null);
-  const [chosenEmoji, setChosenEmoji] = useState(null);
 
   const sessionUser = useSelector((state) => state.session.user);
   const currentPhoto = useSelector((state) => state.photo.currentPhoto);
@@ -23,9 +22,6 @@ function ImageDetail({ title, imgdescription }) {
     (comment) => comment.id === editItemId
   );
 
-  const onEmojiClick = (event, emojiObject) => {
-    setChosenEmoji(emojiObject);
-  };
 
   const handleCommentSubmit = (e) => {
     e.preventDefault();

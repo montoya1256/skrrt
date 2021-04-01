@@ -61,7 +61,7 @@ router.get(
   })
 );
 
-router.patch(
+router.put(
   "/:photoId",
   validateImage,
   asyncHandler(async (req, res) => {

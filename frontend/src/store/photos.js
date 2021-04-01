@@ -2,7 +2,9 @@ import { csrfFetch } from "./csrf";
 
 const SET_IMAGE = "photos/setImage";
 const LOAD = "photos/loadPhotos";
-const FIND_ONE = "photos/FindOne"
+const FIND_ONE = "photos/FindOne";
+const UPDATE_IMAGE = "photos/Update";
+const REMOVE_IMAGE = "photos/Remove";
 
 const setImage = (image) => ({
   type: SET_IMAGE,
@@ -14,18 +16,51 @@ const load = (list) => ({
   list,
 });
 
-const findImage = image => ({
+const findImage = (image) => ({
   type: FIND_ONE,
-  image
-})
+  image,
+});
+
+const update = (image) => ({
+  type: UPDATE_IMAGE,
+  image,
+});
+
+const remove = (id) => ({
+  type: REMOVE_IMAGE,
+  id,
+});
+
+export const editPhoto = (image) => async (dispatch) => {
+  const { id, description, title, userId, albumId } = image;
+  const res = await csrfFetch(`/api/photos/${id}`, {
+    method: "PUT",
+    body: JSON.stringify({ id, description, title, userId, albumId }),
+    headers: { "Content-Type": "application/json" },
+  });
+  if (res.ok) {
+    const updatedImage = await res.json();
+    dispatch(update(updatedImage));
+    return updatedImage;
+  }
+};
+
+export const deleteImage = imageId => async dispatch => {
+  const res = await csrfFetch(`/api/photos/${imageId}`, {
+    method: 'delete'
+  })
+  if (res.ok) {
+    dispatch(remove(imageId))
+  }
+}
 
 export const getImageDetail = (photoId) => async (dispatch) => {
   const response = await csrfFetch(`/api/photos/${photoId}`);
-  if(response.ok) {
+  if (response.ok) {
     const detail = await response.json();
-    dispatch(findImage(detail))
+    dispatch(findImage(detail));
   }
-}
+};
 
 export const createImage = (newImage) => async (dispatch) => {
   const { images, image, title, description, userId, albumId } = newImage;
@@ -59,10 +94,10 @@ export const createImage = (newImage) => async (dispatch) => {
 };
 
 export const getPhotos = () => async (dispatch) => {
-  const res = await fetch('/api/photos/');
-  if(res.ok) {
+  const res = await fetch("/api/photos/");
+  if (res.ok) {
     const list = await res.json();
-    dispatch(load(list))
+    dispatch(load(list));
   }
 };
 
@@ -70,21 +105,28 @@ const imageReducer = (state = {}, action) => {
   switch (action.type) {
     case LOAD: {
       const allPhotos = {};
-      action.list.forEach(photo => {
+      action.list.forEach((photo) => {
         allPhotos[photo.id] = photo;
       });
       return {
         ...allPhotos,
         ...state,
-        list: action.list
-      }
+        list: action.list,
+      };
     }
     case FIND_ONE: {
-      const newState = {...state, ['currentPhoto']:action.image}
-      return newState
+      const newState = { ...state, ["currentPhoto"]: action.image };
+      return newState;
     }
     case SET_IMAGE:
       return { ...state, image: action.payLoad };
+    case UPDATE_IMAGE:
+      return {...state, image: action.image};
+    case REMOVE_IMAGE:
+      let rmvid = action.id;
+      const newState = {...state};
+      delete newState[rmvid]
+      return newState
     default:
       return state;
   }

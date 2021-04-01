@@ -32,14 +32,14 @@ const remove = (id) => ({
   id,
 });
 
-export const deleteComment = commentId => async dispatch => {
+export const deleteComment = (commentId) => async (dispatch) => {
   const res = await csrfFetch(`/api/comments/${commentId}`, {
-    method: 'delete',
-  })
+    method: "delete",
+  });
   if (res.ok) {
-    dispatch(remove(commentId))
+    dispatch(remove(commentId));
   }
-}
+};
 
 export const createComment = (newComment) => async (dispatch) => {
   const { description, userId, photoId } = newComment;
@@ -109,16 +109,18 @@ const commentReducer = (state = {}, action) => {
     case UPDATE_ITEM:
       const updatedComment = { ...state };
       // console.log(updatedComment.photoComments)
-      let needtoUpdateComment = updatedComment.photoComments.map(comment => {
-       return comment.id === action.comment.id ? action.comment : comment
-      })
-      updatedComment["photoComments"] = needtoUpdateComment
+      let needtoUpdateComment = updatedComment.photoComments.map((comment) => {
+        return comment.id === action.comment.id ? action.comment : comment;
+      });
+      updatedComment["photoComments"] = needtoUpdateComment;
       return updatedComment;
     case REMOVE_COMMENT:
       let rmvid = action.id;
       const newState = { ...state };
-      const newArr = newState.photoComments.filter(comment => comment.id !== rmvid)
-      newState.photoComments = newArr
+      const newArr = newState.photoComments.filter(
+        (comment) => comment.id !== rmvid
+      );
+      newState.photoComments = newArr;
       return newState;
     default:
       return state;
