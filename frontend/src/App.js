@@ -31,7 +31,7 @@ function App() {
           <Route path='/upload'>
             <UploadPhotoFormPage />
           </Route>
-          <Route path='/explore'>
+          <Route path={['/', '/explore']}>
             <PhotoBrowser />
             <Image />
           </Route>
