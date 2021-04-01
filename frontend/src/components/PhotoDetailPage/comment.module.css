@@ -34,7 +34,7 @@
   border: none;
   background: none;
   cursor: pointer;
-  display: none;
+  /* display: none; */
   font-size: 20px;
   opacity: .6;
   margin-right: 15px;
@@ -60,6 +60,7 @@
   border-radius: 4px;
   outline: none;
   font-size: 14px;
+  margin-top: 10px;
 }
 
 .commentTextArea textarea:focus,

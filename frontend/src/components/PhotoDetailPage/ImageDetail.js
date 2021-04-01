@@ -70,7 +70,9 @@ function ImageDetail({ title, imgdescription }) {
   if (editComment) {
     content = (
       <div className={styles.commentTextArea}>
-        <button type='button' onClick={() => setEditComment(false)}>Cancel Edit</button>
+        <button type="button" onClick={() => setEditComment(false)}>
+          Cancel Edit
+        </button>
         <textarea
           placholder="Add a comment"
           value={description}
@@ -103,6 +105,15 @@ function ImageDetail({ title, imgdescription }) {
                   }}
                 >
                   <i className="far fa-edit"></i>
+                </button>
+                <button
+                  className={`${styles.editBTN}`}
+                  type="button"
+                  onClick={() =>
+                    dispatch(commentActions.deleteComment(comment.id))
+                  }
+                >
+                  <i className="far fa-trash-alt"></i>
                 </button>
               </div>
             </div>
