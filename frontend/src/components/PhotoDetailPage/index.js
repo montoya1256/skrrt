@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { getImageDetail, getPhotos } from "../../store/photos";
-// import { getAllUsers } from "../../store/user";
+import { getAllUsers } from "../../store/user";
 import Image from "./Image";
 import ImageDetail from "./ImageDetail";
 
@@ -21,7 +21,7 @@ function PhotoDetailPage() {
   useEffect(() => {
     dispatch(getImageDetail(photoId));
     dispatch(getPhotos());
-    // dispatch(getAllUsers());
+    dispatch(getAllUsers());
   }, [dispatch, photoId]);
 
   return (

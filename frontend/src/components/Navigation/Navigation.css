@@ -104,9 +104,11 @@
 }
 
 .profile-dropdown {
+  position: relative;
   background: white;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   visibility: visible;
+  z-index: 5;
 }
 
 .navBar__dropdown--isLoaded-links .hidden {
@@ -121,12 +123,13 @@
   padding: 8px;
   margin-bottom: 10px;
   cursor: pointer;
+  z-index: 5;
 }
 
 .profile-dropdown a:hover,
 .profile-dropdown label:hover {
   background: rgba(190, 190, 190, 0.568);
-
+  z-index: 5;
 }
 
 .navBar__dropdown--isLoaded-links {
