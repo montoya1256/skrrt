@@ -21,10 +21,6 @@ const findImage = (image) => ({
   image,
 });
 
-const update = (image) => ({
-  type: UPDATE_IMAGE,
-  image,
-});
 
 const remove = (id) => ({
   type: REMOVE_IMAGE,
@@ -34,16 +30,17 @@ const remove = (id) => ({
 export const editPhoto = (image) => async (dispatch) => {
   const { id, description, title, userId, albumId } = image;
   const res = await csrfFetch(`/api/photos/${id}`, {
-    method: "PUT",
+    method: "PATCH",
     body: JSON.stringify({ id, description, title, userId, albumId }),
     headers: { "Content-Type": "application/json" },
   });
   if (res.ok) {
     const updatedImage = await res.json();
-    dispatch(update(updatedImage));
+    dispatch(findImage(updatedImage, id));
     return updatedImage;
   }
 };
+
 
 export const deleteImage = imageId => async dispatch => {
   const res = await csrfFetch(`/api/photos/${imageId}`, {
@@ -120,8 +117,6 @@ const imageReducer = (state = {}, action) => {
     }
     case SET_IMAGE:
       return { ...state, image: action.payLoad };
-    case UPDATE_IMAGE:
-      return {...state, image: action.image};
     case REMOVE_IMAGE:
       let rmvid = action.id;
       const newState = {...state};

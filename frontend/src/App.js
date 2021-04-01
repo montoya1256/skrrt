@@ -7,6 +7,7 @@ import SignupFormPage from "./components/SignupFormPage";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import PhotoDetailPage from "./components/PhotoDetailPage";
+import PhotoEditPage from "./components/PhotoDetailPage/PhotoEditPage";
 import PhotoBrowser from "./components/PhotoBrowser";
 import Image from './components/PhotoBrowser/image'
 
@@ -35,8 +36,11 @@ function App() {
             <PhotoBrowser />
             <Image />
           </Route>
-          <Route path='/photos/:photoId'>
+          <Route path='/photos/:photoId' exact>
             <PhotoDetailPage />
+          </Route>
+          <Route path='/photos/:photoId/edit'>
+            <PhotoEditPage />
           </Route>
         </Switch>
       )}

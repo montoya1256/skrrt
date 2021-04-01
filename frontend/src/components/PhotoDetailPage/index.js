@@ -13,7 +13,7 @@ function PhotoDetailPage() {
   const photos = useSelector((state) => {
     return state.photo.list?.map((photo) => photo);
   });
-  const photo = useSelector((state) => state.photo.currentPhoto);
+  const photo = useSelector((state) => state.photo?.currentPhoto);
 
   const nextPhoto = photos?.find((pic) => pic?.id > photo?.id);
 
@@ -29,12 +29,14 @@ function PhotoDetailPage() {
       <Image
         src={photo?.photo_url}
         alt={photo?.title}
+        currentId={photo?.id}
         nextPhotoId={nextPhoto?.id}
       />
       <ImageDetail
         userId={photo?.userId}
         title={photo?.title}
         imgdescription={photo?.description}
+        photo_url={photo?.photo_url}
       />
     </div>
   );

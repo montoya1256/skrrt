@@ -3,7 +3,7 @@ import styles from "./PhotoDetail.module.css";
 import { NavLink, Link } from "react-router-dom";
 import { useHistory } from "react-router";
 
-function Image({ src, alt, nextPhotoId }) {
+function Image({ src, alt, nextPhotoId, currentId }) {
   const history = useHistory();
 
   const goBack = () => {
@@ -28,6 +28,9 @@ function Image({ src, alt, nextPhotoId }) {
       >
         <i className={`fas fa-angle-right ${styles.rightArrow}`}></i>
       </Link>
+      <NavLink to={`/photos/${currentId}/edit`} className={styles.editNavBtn}>
+        Edit
+      </NavLink>
     </div>
   );
 }

@@ -2,16 +2,21 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import * as commentActions from "../../store/comments";
+import * as photoActions from "../../store/photos";
 import styles from "./comment.module.css";
 
-function ImageDetail({ title, imgdescription }) {
+function ImageDetail({ title, imgdescription, photo_url }) {
   const dispatch = useDispatch();
   const { photoId } = useParams();
 
   const [description, setDescription] = useState("");
+  // const [newdescription, setnewDescription] = useState(description);
   const [errors, setErrors] = useState([]);
   const [editComment, setEditComment] = useState(false);
   const [editItemId, setEditItemId] = useState(null);
+  const [editPhoto, setEditPhoto] = useState(false);
+  const [newTitle, setNewTitle] = useState(title);
+  const [newDescription, setNewDescription] = useState(description);
 
   const sessionUser = useSelector((state) => state.session.user);
   const currentPhoto = useSelector((state) => state.photo.currentPhoto);
@@ -21,7 +26,6 @@ function ImageDetail({ title, imgdescription }) {
   const editThisComment = photoComments?.find(
     (comment) => comment.id === editItemId
   );
-
 
   const handleCommentSubmit = (e) => {
     e.preventDefault();
@@ -61,10 +65,25 @@ function ImageDetail({ title, imgdescription }) {
     });
   };
 
-  let content = null;
+  const handleEditPhoto = (e) => {
+    e.preventDefault();
+    const newImage = {
+      photo_url,
+      id: photoId,
+      title: newTitle,
+      description: newDescription,
+      userId: currentPhoto.userId,
+      albumId: currentPhoto.albumId,
+    };
+    dispatch(photoActions.editPhoto(newImage)).then(() => {
+      return setEditPhoto(false);
+    });
+  };
+
+  let commentContent = null;
 
   if (editComment) {
-    content = (
+    commentContent = (
       <div className={styles.commentTextArea}>
         <button type="button" onClick={() => setEditComment(false)}>
           Cancel Edit
@@ -84,12 +103,12 @@ function ImageDetail({ title, imgdescription }) {
       </div>
     );
   } else {
-    content = (
+    commentContent = (
       <div>
         <div>
           {photoComments?.map((comment) => (
             <div>
-              {content}
+              {commentContent}
               <div key={comment.id} className={styles.commentSection_comment}>
                 {comment.description}
                 <button
@@ -132,9 +151,48 @@ function ImageDetail({ title, imgdescription }) {
     );
   }
 
+  let photoContent = null;
+
+  if (editPhoto) {
+    photoContent = (
+      <div>
+        <button type="button" onClick={() => setEditPhoto(false)}>
+          Cancel Edit
+        </button>
+        <input
+          type="text"
+          value={newTitle}
+          placeholder="Title"
+          onChange={(e) => setNewTitle(e.target.value)}
+        ></input>
+        <input
+          type="text"
+          placeholder="Description"
+          value={newDescription}
+          onChange={(e) => setNewDescription(e.target.value)}
+        ></input>
+        <button
+          type="button"
+          onClick={handleEditPhoto}
+          >Confirm edit</button>
+      </div>
+    );
+  } else {
+    photoContent = (
+      <div>
+        <div className={styles.title}>{title}</div>
+        <button type="button" onClick={() => setEditPhoto(true)}>
+          Edit
+        </button>
+        <p className={styles.imgdescription}>{imgdescription}</p>
+      </div>
+    );
+  }
+
   useEffect(() => {
     setEditItemId(null);
     setEditComment(false);
+    setEditPhoto(false);
     // dispatch(commentActions.editComment(commentId))
     dispatch(commentActions.getComments(photoId));
   }, [dispatch, photoId]);
@@ -150,10 +208,9 @@ function ImageDetail({ title, imgdescription }) {
           ))}
         </ul>
         <div>
-          <div className={styles.title}>{title}</div>
-          <p className={styles.imgdescription}>{imgdescription}</p>
+          {photoContent}
           <p className={styles.title}>Comments</p>
-          <div>{content}</div>
+          <div>{commentContent}</div>
         </div>
       </form>
     </div>

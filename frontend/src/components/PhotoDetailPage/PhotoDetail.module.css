@@ -13,13 +13,25 @@
   z-index: 2;
 }
 
-.backBtn:hover {
+.editNavBtn {
+  position: absolute;
+  color: white;
+  text-decoration: none;
+  z-index: 2;
+  bottom: 18px;
+  right: 200px;
+}
+
+.backBtn:hover,
+.editNavBtn:hover {
   text-decoration: underline;
 }
 
 .leftBackArrow {
   margin-right: 10px;
 }
+
+
 
 .leftPhotoContainer {
   position: absolute;
