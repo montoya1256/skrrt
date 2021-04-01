@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router";
+import { useHistory, useParams } from "react-router";
 import * as commentActions from "../../store/comments";
 import * as photoActions from "../../store/photos";
 import styles from "./comment.module.css";
@@ -8,6 +8,7 @@ import styles from "./comment.module.css";
 function ImageDetail({ title, imgdescription, photo_url }) {
   const dispatch = useDispatch();
   const { photoId } = useParams();
+  const history = useHistory();
 
   const [description, setDescription] = useState("");
   // const [newdescription, setnewDescription] = useState(description);
@@ -80,6 +81,12 @@ function ImageDetail({ title, imgdescription, photo_url }) {
     });
   };
 
+  const handleDeleteImage = e => {
+    e.preventDefault();
+    dispatch(photoActions.deleteImage(photoId))
+    history.push('/explore')
+  }
+
   let commentContent = null;
 
   if (editComment) {
@@ -124,8 +131,9 @@ function ImageDetail({ title, imgdescription, photo_url }) {
                 <button
                   className={`${styles.editBTN}`}
                   type="button"
-                  onClick={() =>
+                  onClick={() => {
                     dispatch(commentActions.deleteComment(comment.id))
+                  }
                   }
                 >
                   <i className="far fa-trash-alt"></i>
@@ -171,10 +179,9 @@ function ImageDetail({ title, imgdescription, photo_url }) {
           value={newDescription}
           onChange={(e) => setNewDescription(e.target.value)}
         ></input>
-        <button
-          type="button"
-          onClick={handleEditPhoto}
-          >Confirm edit</button>
+        <button type="button" onClick={handleEditPhoto}>
+          Confirm edit
+        </button>
       </div>
     );
   } else {
@@ -183,6 +190,12 @@ function ImageDetail({ title, imgdescription, photo_url }) {
         <div className={styles.title}>{title}</div>
         <button type="button" onClick={() => setEditPhoto(true)}>
           Edit
+        </button>
+        <button
+          type="button"
+          onClick={handleDeleteImage}
+        >
+          <i className="far fa-trash-alt"></i>
         </button>
         <p className={styles.imgdescription}>{imgdescription}</p>
       </div>

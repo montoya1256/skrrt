@@ -28,9 +28,6 @@ function Image({ src, alt, nextPhotoId, currentId }) {
       >
         <i className={`fas fa-angle-right ${styles.rightArrow}`}></i>
       </Link>
-      <NavLink to={`/photos/${currentId}/edit`} className={styles.editNavBtn}>
-        Edit
-      </NavLink>
     </div>
   );
 }
