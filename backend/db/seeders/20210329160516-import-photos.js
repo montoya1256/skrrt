@@ -24,6 +24,48 @@ module.exports = {
         userId: 1,
         albumId: 1
       },
+      {
+        photo_url: 'https://skrrt-project-flickr-clone.s3.us-east-2.amazonaws.com/1617384270691.jpg',
+        title: 'Why we love JDM',
+        description: 'We spend countless hours every day looking at other people’s car builds, searching for cars we can’t afford, researching the perfect mod that would improve our vehicle even if only by a little bit. A connection with our cars that breeds love, hate, sadness, and anger. That same connection led us to new friendships, it led us to discover a second family, the car community.',
+        userId: 1,
+        albumId: 1
+      },
+      {
+        photo_url: 'https://skrrt-project-flickr-clone.s3.us-east-2.amazonaws.com/1617317946476.jpg',
+        title: 'Why we love JDM',
+        description: 'We spend countless hours every day looking at other people’s car builds, searching for cars we can’t afford, researching the perfect mod that would improve our vehicle even if only by a little bit. A connection with our cars that breeds love, hate, sadness, and anger. That same connection led us to new friendships, it led us to discover a second family, the car community.',
+        userId: 1,
+        albumId: 1
+      },
+      {
+        photo_url: 'https://skrrt-project-flickr-clone.s3.us-east-2.amazonaws.com/1617317760135.jpg',
+        title: 'Why we love JDM',
+        description: 'We spend countless hours every day looking at other people’s car builds, searching for cars we can’t afford, researching the perfect mod that would improve our vehicle even if only by a little bit. A connection with our cars that breeds love, hate, sadness, and anger. That same connection led us to new friendships, it led us to discover a second family, the car community.',
+        userId: 1,
+        albumId: 1
+      },
+      {
+        photo_url: 'https://skrrt-project-flickr-clone.s3.us-east-2.amazonaws.com/1617317752934.jpg',
+        title: 'Why we love JDM',
+        description: 'We spend countless hours every day looking at other people’s car builds, searching for cars we can’t afford, researching the perfect mod that would improve our vehicle even if only by a little bit. A connection with our cars that breeds love, hate, sadness, and anger. That same connection led us to new friendships, it led us to discover a second family, the car community.',
+        userId: 1,
+        albumId: 1
+      },
+      {
+        photo_url: 'https://skrrt-project-flickr-clone.s3.us-east-2.amazonaws.com/1617317684648.jpg',
+        title: 'Why we love JDM',
+        description: 'We spend countless hours every day looking at other people’s car builds, searching for cars we can’t afford, researching the perfect mod that would improve our vehicle even if only by a little bit. A connection with our cars that breeds love, hate, sadness, and anger. That same connection led us to new friendships, it led us to discover a second family, the car community.',
+        userId: 1,
+        albumId: 1
+      },
+      {
+        photo_url: 'https://skrrt-project-flickr-clone.s3.us-east-2.amazonaws.com/1617317656005.jpg',
+        title: 'Why we love JDM',
+        description: 'We spend countless hours every day looking at other people’s car builds, searching for cars we can’t afford, researching the perfect mod that would improve our vehicle even if only by a little bit. A connection with our cars that breeds love, hate, sadness, and anger. That same connection led us to new friendships, it led us to discover a second family, the car community.',
+        userId: 1,
+        albumId: 1
+      },
     ], {});
   },
 

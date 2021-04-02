@@ -1,19 +1,26 @@
-import React, { useState } from "react";
-import {useHistory} from 'react-router-dom'
+import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import * as photoActions from "../../store/photos";
+import * as tagActions from "../../store/tags";
 import styles from "./uploadImageForm.module.css";
+// import Select from "react-select";
 
 function UploadPhotoFormPage() {
   const dispatch = useDispatch();
+  const history = useHistory();
+
   const sessionUser = useSelector((state) => state.session.user);
-  const history = useHistory()
+  const tagNamesArr = useSelector((state) => state.tags.TagNames);
 
   const [image, setImage] = useState(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [display, setDisplay] = useState(null);
   const [errors, setErrors] = useState([]);
+  const [selectedTagId, setSelectedTagId] = useState(null);
+
+  console.log('selectedTagId',selectedTagId)
 
   const handleSubmit = (e) => {
     let newErrors = [];
@@ -24,16 +31,16 @@ function UploadPhotoFormPage() {
         description,
         image,
         userId: sessionUser.id,
-        // this needs to change to make it for a specific album
-        albumId: sessionUser.id
+        albumId: sessionUser.id,
+        tagNameId: selectedTagId
       })
     )
       .then(() => {
         setTitle("");
         setDescription("");
         setImage(null);
-        setDisplay(null)
-        history.push('/explore')
+        setDisplay(null);
+        history.push("/explore");
       })
       .catch(async (res) => {
         const data = await res.json();
@@ -42,8 +49,11 @@ function UploadPhotoFormPage() {
           setErrors(newErrors);
         }
       });
-
   };
+
+  useEffect(() => {
+    dispatch(tagActions.getTagNames());
+  }, [dispatch]);
 
   const updateFile = (e) => {
     const file = e.target.files[0];
@@ -108,13 +118,28 @@ function UploadPhotoFormPage() {
           onChange={updateFile}
           ref={hiddenFileInput}
         ></input>
-        <button type="submit" className={`${styles.upload_btn} ${image ? styles.upload : ''}`}>Upload Picture</button>
+        <button
+          type="submit"
+          className={`${styles.upload_btn} ${image ? styles.upload : ""}`}
+        >
+          Upload Picture
+        </button>
       </form>
       <button onClick={defaultBtnActive} className={styles.custom_btn}>
         Choose a file
       </button>
+      <select
+        value={selectedTagId}
+        onChange={(e) => setSelectedTagId(e.target.value)}
+      >
+        {" "}
+        {tagNamesArr?.map((tagName) => (
+          <option value={tagName.id}>{tagName.title}</option>
+        ))}
+      </select>
     </div>
   );
 }
+
 
 export default UploadPhotoFormPage;

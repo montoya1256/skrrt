@@ -22,16 +22,16 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
-          <Route path="/login">
+          <Route path="/login" exact>
             <LoginFormPage />
           </Route>
-          <Route path="/signup">
+          <Route path="/signup" exact>
             <SignupFormPage />
           </Route>
-          <Route path='/upload'>
+          <Route path='/upload' exact>
             <UploadPhotoFormPage />
           </Route>
-          <Route path={['/', '/explore']}>
+          <Route path={['/', '/explore']} exact>
             <PhotoBrowser />
             <Image />
           </Route>

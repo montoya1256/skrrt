@@ -20,7 +20,6 @@ const findImage = (image) => ({
   image,
 });
 
-
 const remove = (id) => ({
   type: REMOVE_IMAGE,
   id,
@@ -59,12 +58,13 @@ export const getImageDetail = (photoId) => async (dispatch) => {
 };
 
 export const createImage = (newImage) => async (dispatch) => {
-  const { images, image, title, description, userId, albumId } = newImage;
+  const { images, image, title, description, userId, albumId, tagNameId } = newImage;
   const formData = new FormData();
   formData.append("title", title);
   formData.append("description", description);
   formData.append("userId", userId);
   formData.append("albumId", albumId);
+  formData.append("tagNameId", tagNameId);
 
   // for multiple files
   if (images && images.length !== 0) {

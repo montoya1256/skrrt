@@ -5,12 +5,14 @@ import sessionReducer from './session';
 import imageReducer from './photos'
 import userReducer from './user'
 import commentReducer from './comments'
+import tagReducer from './tags'
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   photo: imageReducer,
   users: userReducer,
   comments: commentReducer,
+  tags: tagReducer,
 });
 
 let enhancer;

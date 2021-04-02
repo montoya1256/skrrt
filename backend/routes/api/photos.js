@@ -2,6 +2,8 @@ const express = require("express");
 const asyncHandler = require("express-async-handler");
 
 const { Photo } = require("../../db/models");
+const { Tag } = require("../../db/models");
+const { TagName } = require("../../db/models");
 
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
@@ -29,8 +31,7 @@ router.post(
   singleMulterUpload("image"),
   validateImage,
   asyncHandler(async (req, res) => {
-    // console.log('hello -----------------------------------------')
-    const { title, description, userId, albumId } = req.body;
+    const { title, description, userId, albumId, tagNameId } = req.body;
     const carImageUrl = await singlePublicFileUpload(req.file);
     const carImage = await Photo.create({
       title,
@@ -39,8 +40,13 @@ router.post(
       userId,
       albumId,
     });
+    const tag = await Tag.create({
+      photoId: carImage.id,
+      tagNameId,
+    })
     return res.json({
       carImage,
+      tag
     });
   })
 );
@@ -60,6 +66,20 @@ router.get(
     return res.json(photo);
   })
 );
+
+router.get(
+  '/:id/tags',
+  asyncHandler(async(req, res) => {
+    const photo = await Photo.findByPk(req.params.id, {
+      include:
+        {
+          model: TagName
+        }
+    })
+    return res.json(photo)
+  })
+)
+
 
 router.patch(
   "/:photoId",
@@ -83,5 +103,7 @@ router.delete(
     return res.json({message: 'Image has been deleted'})
   })
 )
+
+
 
 module.exports = router;

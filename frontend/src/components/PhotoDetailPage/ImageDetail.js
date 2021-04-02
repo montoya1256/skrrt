@@ -18,8 +18,6 @@ function ImageDetail({ title, imgdescription, photo_url }) {
   const [editPhoto, setEditPhoto] = useState(false);
   const [newTitle, setNewTitle] = useState(title);
   const [newDescription, setNewDescription] = useState(description);
-  const [currentPhotoUser, setCurrentPhotoUser] = useState(null);
-  const [isphotoOwner, setisPhotoOwner] = useState(false);
 
   const sessionUser = useSelector((state) => state.session.user);
   const currentPhoto = useSelector((state) => state.photo.currentPhoto);
