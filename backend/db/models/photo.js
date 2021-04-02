@@ -29,14 +29,15 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {});
   Photo.associate = function(models) {
-    Photo.belongsTo(models.User, {foreignKey: 'userId'})
-    Photo.belongsTo(models.Album, {foreignKey: 'albumId'})
+    Photo.belongsTo(models.User, {foreignKey: 'userId', onDelete: 'CASCADE',})
+    Photo.belongsTo(models.Album, {foreignKey: 'albumId', onDelete: 'CASCADE'})
     Photo.hasMany(models.Comment, {foreignKey: 'photoId', onDelete: 'CASCADE', hooks: true})
 
     const columnMapping = {
       foreignKey: 'photoId',
       through: 'Tags',
-      otherKey: 'tagNameId'
+      otherKey: 'tagNameId',
+      onDelete: 'CASCADE'
     }
     Photo.belongsToMany(models.TagName, columnMapping)
   };

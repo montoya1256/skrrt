@@ -26,10 +26,10 @@ const remove = (id) => ({
 });
 
 export const editPhoto = (image) => async (dispatch) => {
-  const { id, description, title, userId, albumId } = image;
-  const res = await csrfFetch(`/api/photos/${id}`, {
+  const { id, description, title, userId, albumId, tagNameId } = image;
+  const res = await csrfFetch(`/api/photos/${id}/tags`, {
     method: "PATCH",
-    body: JSON.stringify({ id, description, title, userId, albumId }),
+    body: JSON.stringify({ id, description, title, userId, albumId, tagNameId }),
     headers: { "Content-Type": "application/json" },
   });
   if (res.ok) {
@@ -39,26 +39,34 @@ export const editPhoto = (image) => async (dispatch) => {
   }
 };
 
-
-export const deleteImage = imageId => async dispatch => {
+export const deleteImage = (imageId) => async (dispatch) => {
   const res = await csrfFetch(`/api/photos/${imageId}`, {
-    method: 'delete'
-  })
+    method: "delete",
+  });
   if (res.ok) {
-    dispatch(remove(imageId))
+    dispatch(remove(imageId));
   }
-}
+};
 
 export const getImageDetail = (photoId) => async (dispatch) => {
-  const response = await csrfFetch(`/api/photos/${photoId}`);
+  const response = await csrfFetch(`/api/photos/${photoId}/tags`);
   if (response.ok) {
     const detail = await response.json();
     dispatch(findImage(detail));
   }
 };
 
+
 export const createImage = (newImage) => async (dispatch) => {
-  const { images, image, title, description, userId, albumId, tagNameId } = newImage;
+  const {
+    images,
+    image,
+    title,
+    description,
+    userId,
+    albumId,
+    tagNameId,
+  } = newImage;
   const formData = new FormData();
   formData.append("title", title);
   formData.append("description", description);
@@ -118,9 +126,9 @@ const imageReducer = (state = {}, action) => {
       return { ...state, image: action.payLoad };
     case REMOVE_IMAGE:
       let rmvid = action.id;
-      const newState = {...state};
-      delete newState[rmvid]
-      return newState
+      const newState = { ...state };
+      delete newState[rmvid];
+      return newState;
     default:
       return state;
   }

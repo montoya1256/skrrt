@@ -8,7 +8,8 @@ module.exports = (sequelize, DataTypes) => {
     const columnMapping = {
       foreignKey: 'tagNameId',
       through: 'Tags',
-      otherKey: 'photoId'
+      otherKey: 'photoId',
+      onDelete: 'CASCADE'
     }
     TagName.belongsToMany(models.Photo, columnMapping)
   };

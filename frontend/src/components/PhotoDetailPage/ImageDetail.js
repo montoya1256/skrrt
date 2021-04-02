@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router";
 import * as commentActions from "../../store/comments";
 import * as photoActions from "../../store/photos";
+import * as tagActions from "../../store/tags";
 import styles from "./comment.module.css";
 
 function ImageDetail({ title, imgdescription, photo_url }) {
@@ -18,19 +19,22 @@ function ImageDetail({ title, imgdescription, photo_url }) {
   const [editPhoto, setEditPhoto] = useState(false);
   const [newTitle, setNewTitle] = useState(title);
   const [newDescription, setNewDescription] = useState(description);
+  const [selectedTagId, setSelectedTagId] = useState(null);
 
   const sessionUser = useSelector((state) => state.session.user);
   const currentPhoto = useSelector((state) => state.photo.currentPhoto);
   const photoComments = useSelector((state) => state.comments.photoComments);
+  const tagNamesArr = useSelector((state) => state.tags.TagNames);
+
+  // console.log('selectedTagId',selectedTagId)
 
   let issphotoOwner;
 
+  const currentTagNamesArr = currentPhoto?.TagNames;
+
   if (currentPhoto?.userId === sessionUser?.id) {
     issphotoOwner = sessionUser;
-    // setPhotoOwner(sessionUser)
   }
-
-  // setisPhotoOwner(currentPhoto?.userId === sessionUser.id)
 
   const editThisComment = photoComments?.find(
     (comment) => comment.id === editItemId
@@ -83,6 +87,7 @@ function ImageDetail({ title, imgdescription, photo_url }) {
       description: newDescription,
       userId: currentPhoto.userId,
       albumId: currentPhoto.albumId,
+      tagNameId: selectedTagId,
     };
     dispatch(photoActions.editPhoto(newImage)).then(() => {
       return setEditPhoto(false);
@@ -97,7 +102,9 @@ function ImageDetail({ title, imgdescription, photo_url }) {
       })
       .catch(() => {
         let errors = [];
-        errors.push("You can't delete this photo becuase there are comments attached to it");
+        errors.push(
+          "You can't delete this photo"
+        );
         setErrors(errors);
       });
   };
@@ -178,6 +185,15 @@ function ImageDetail({ title, imgdescription, photo_url }) {
   if (editPhoto) {
     photoContent = (
       <div>
+        <select
+        value={selectedTagId}
+        onChange={(e) => setSelectedTagId(e.target.value)}
+      >
+        <option>Select</option>
+        {tagNamesArr?.map((tagName) => (
+          <option value={tagName.id}>{tagName.title}</option>
+        ))}
+      </select>
         <button type="button" onClick={() => setEditPhoto(false)}>
           Cancel Edit
         </button>
@@ -201,6 +217,11 @@ function ImageDetail({ title, imgdescription, photo_url }) {
   } else {
     photoContent = (
       <div>
+        <ul>
+          {currentTagNamesArr?.map((tagName) => (
+            <li key={tagName.id}>{tagName.title}</li>
+          ))}
+        </ul>
         <div className={styles.title}>{title}</div>
         {issphotoOwner ? (
           <div>
@@ -211,7 +232,9 @@ function ImageDetail({ title, imgdescription, photo_url }) {
               <i className="far fa-trash-alt"></i>
             </button>
           </div>
-        ) : <span></span>}
+        ) : (
+          <span></span>
+        )}
         <p className={styles.imgdescription}>{imgdescription}</p>
       </div>
     );
@@ -222,7 +245,7 @@ function ImageDetail({ title, imgdescription, photo_url }) {
     setEditComment(false);
     setEditPhoto(false);
     setErrors([]);
-    // dispatch(commentActions.editComment(commentId))
+    dispatch(tagActions.getTagNames());
     dispatch(commentActions.getComments(photoId));
   }, [dispatch, photoId]);
 

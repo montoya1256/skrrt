@@ -82,13 +82,18 @@ router.get(
 
 
 router.patch(
-  "/:photoId",
+  "/:photoId/tags",
   validateImage,
   asyncHandler(async (req, res) => {
     const photoId = parseInt(req.params.photoId, 10);
-    const { title, description } = req.body;
-    const newImage = await Photo.findByPk(photoId);
-    const edit = { title, description };
+    const { title, description, tagNameId } = req.body;
+    const newImage = await Photo.findByPk(photoId, {
+      include:
+      {
+        model: TagName
+      }
+    });
+    const edit = { title, description, tagNameId };
     await newImage.update(edit);
     return res.json(newImage);
   })

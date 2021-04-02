@@ -20,8 +20,6 @@ function UploadPhotoFormPage() {
   const [errors, setErrors] = useState([]);
   const [selectedTagId, setSelectedTagId] = useState(null);
 
-  console.log('selectedTagId',selectedTagId)
-
   const handleSubmit = (e) => {
     let newErrors = [];
     e.preventDefault();
@@ -132,7 +130,7 @@ function UploadPhotoFormPage() {
         value={selectedTagId}
         onChange={(e) => setSelectedTagId(e.target.value)}
       >
-        {" "}
+        <option>Select</option>
         {tagNamesArr?.map((tagName) => (
           <option value={tagName.id}>{tagName.title}</option>
         ))}
