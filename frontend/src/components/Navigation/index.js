@@ -33,8 +33,9 @@ function Navigation({ isLoaded }) {
           <img className="icon-img" src={logo} alt="logo"></img>
         </NavLink>
         <div className="search-box">
-          <span className="fa fa-search"></span>
-          <input type="search" placeholder="search"></input>
+          {/* <span className="fa fa-search"></span>
+          <input type="search" placeholder="search"></input> */}
+          <p></p>
         </div>
         <div></div>
       </nav>
