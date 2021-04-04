@@ -108,7 +108,6 @@ const commentReducer = (state = {}, action) => {
       return newComments;
     case UPDATE_ITEM:
       const updatedComment = { ...state };
-      // console.log(updatedComment.photoComments)
       let needtoUpdateComment = updatedComment.photoComments.map((comment) => {
         return comment.id === action.comment.id ? action.comment : comment;
       });

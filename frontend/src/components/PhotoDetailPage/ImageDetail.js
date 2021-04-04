@@ -52,7 +52,6 @@ function ImageDetail({ title, imgdescription, photo_url }) {
         return setDescription("");
       })
       .catch(async (res) => {
-        console.log("looking", res);
         const data = await res.json();
         if (data && data.errors) {
           newErrors = data.errors;

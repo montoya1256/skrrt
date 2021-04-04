@@ -34,7 +34,6 @@ export const editPhoto = (image) => async (dispatch) => {
   });
   if (res.ok) {
     const updatedImage = await res.json();
-    console.log('----------',updatedImage)
     dispatch(findImage(updatedImage));
     return updatedImage;
   }
@@ -94,7 +93,6 @@ export const createImage = (newImage) => async (dispatch) => {
   });
 
   const data = await res.json();
-  console.log("data.newImage", data.carImage);
   dispatch(setImage(data.carImage));
 };
 
