@@ -26,8 +26,6 @@ function ImageDetail({ title, imgdescription, photo_url }) {
   const photoComments = useSelector((state) => state.comments.photoComments);
   const tagNamesArr = useSelector((state) => state.tags.TagNames);
 
-  // console.log('selectedTagId',selectedTagId)
-
   let issphotoOwner;
 
   const currentTagNamesArr = currentPhoto?.TagNames;
@@ -102,9 +100,7 @@ function ImageDetail({ title, imgdescription, photo_url }) {
       })
       .catch(() => {
         let errors = [];
-        errors.push(
-          "You can't delete this photo"
-        );
+        errors.push("You can't delete this photo");
         setErrors(errors);
       });
   };
@@ -184,40 +180,53 @@ function ImageDetail({ title, imgdescription, photo_url }) {
 
   if (editPhoto) {
     photoContent = (
-      <div>
+      <div className={styles.wrapper}>
         <select
-        value={selectedTagId}
-        onChange={(e) => setSelectedTagId(e.target.value)}
-      >
-        <option>Select</option>
-        {tagNamesArr?.map((tagName) => (
-          <option value={tagName.id}>{tagName.title}</option>
-        ))}
-      </select>
-        <button type="button" onClick={() => setEditPhoto(false)}>
-          Cancel Edit
-        </button>
+          className={styles.select}
+          value={selectedTagId}
+          onChange={(e) => setSelectedTagId(e.target.value)}
+        >
+          <option value={45}>Select Model Name</option>
+          {tagNamesArr?.map((tagName) => (
+            <option value={tagName.id}>{tagName.title}</option>
+          ))}
+        </select>
+
         <input
+          className={styles.titleEdit}
           type="text"
           value={newTitle}
           placeholder="Title"
           onChange={(e) => setNewTitle(e.target.value)}
         ></input>
-        <input
+        <textarea
+          className={styles.descriptionEdit}
           type="text"
           placeholder="Description"
           value={newDescription}
           onChange={(e) => setNewDescription(e.target.value)}
-        ></input>
-        <button type="button" onClick={handleEditPhoto}>
+        ></textarea>
+        <button
+          type="button"
+          className={`${styles.editBTN} ${selectedTagId && newTitle?.length > 4 ? '' : styles.cantEdit }`}
+          onClick={handleEditPhoto}
+        >
           Confirm edit
+        </button>
+        <button
+          type="button"
+          className={styles.editBTN}
+          onClick={() => setEditPhoto(false)}
+        >
+          Cancel Edit
         </button>
       </div>
     );
   } else {
     photoContent = (
       <div>
-        <ul>
+        <span>Tags:</span>
+        <ul className={styles.tagName}>
           {currentTagNamesArr?.map((tagName) => (
             <li key={tagName.id}>{tagName.title}</li>
           ))}
@@ -225,11 +234,19 @@ function ImageDetail({ title, imgdescription, photo_url }) {
         <div className={styles.title}>{title}</div>
         {issphotoOwner ? (
           <div>
-            <button type="button" onClick={() => setEditPhoto(true)}>
-              Edit
+            <button
+              type="button"
+              className={`${styles.editBTN}`}
+              onClick={() => setEditPhoto(true)}
+            >
+              Edit Image Detail<i className="far fa-edit"></i>
             </button>
-            <button type="button" onClick={handleDeleteImage}>
-              <i className="far fa-trash-alt"></i>
+            <button
+              type="button"
+              className={`${styles.editBTN}`}
+              onClick={handleDeleteImage}
+            >
+              Delete Image <i className="far fa-trash-alt"></i>
             </button>
           </div>
         ) : (
