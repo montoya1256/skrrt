@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import * as photoActions from "../../store/photos";
 import * as tagActions from "../../store/tags";
 import styles from "./uploadImageForm.module.css";
-// import Select from "react-select";
 
 function UploadPhotoFormPage() {
   const dispatch = useDispatch();
@@ -30,7 +29,7 @@ function UploadPhotoFormPage() {
         image,
         userId: sessionUser.id,
         albumId: sessionUser.id,
-        tagNameId: selectedTagId
+        tagNameId: selectedTagId,
       })
     )
       .then(() => {
@@ -97,18 +96,30 @@ function UploadPhotoFormPage() {
             <i className="fas fa-times"></i>
           </div>
           <input
-            className={styles.file_name}
+            className={`${styles.file_name} ${image ? styles.selectAppear : ""}`}
             placeholder="TITLE"
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           ></input>
           <textarea
-            className={styles.text_area}
+            className={`${styles.text_area} ${image ? styles.selectAppear : ""}`}
             placeholder="DESCRIPTION"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           ></textarea>
+        </div>
+        <div className={styles.custom_select}>
+          <select
+            className={`${styles.select} ${image ? styles.selectAppear : ""}`}
+            value={selectedTagId}
+            onChange={(e) => setSelectedTagId(e.target.value)}
+          >
+            <option value={45}>Select Car Model</option>
+            {tagNamesArr?.map((tagName) => (
+              <option value={tagName.id}>{tagName.title}</option>
+            ))}
+          </select>
         </div>
         <input
           className={styles.default_btn}
@@ -118,26 +129,19 @@ function UploadPhotoFormPage() {
         ></input>
         <button
           type="submit"
-          className={`${styles.upload_btn} ${image ? styles.upload : ""}`}
+          className={`${styles.upload_btn} ${image && selectedTagId && title.length > 3? styles.upload : ""}`}
         >
           Upload Picture
         </button>
       </form>
-      <button onClick={defaultBtnActive} className={styles.custom_btn}>
+      <button
+        onClick={defaultBtnActive}
+        className={`${styles.custom_btn} ${image ? styles.closeChoose : ""}`}
+      >
         Choose a file
       </button>
-      <select
-        value={selectedTagId}
-        onChange={(e) => setSelectedTagId(e.target.value)}
-      >
-        <option>Select</option>
-        {tagNamesArr?.map((tagName) => (
-          <option value={tagName.id}>{tagName.title}</option>
-        ))}
-      </select>
     </div>
   );
 }
-
 
 export default UploadPhotoFormPage;

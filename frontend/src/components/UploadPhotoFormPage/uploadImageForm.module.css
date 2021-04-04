@@ -31,7 +31,7 @@
 
 .wrapper.active {
   border: none;
-  background-color: rgba(255,255,255, 0.8);
+  background-color: rgba(255, 255, 255, 0.8);
 }
 
 .wrapper .image img {
@@ -41,16 +41,15 @@
 }
 
 .wrapper .icon {
-  font-size:  100px;
+  font-size: 100px;
   color: #9658fe;
   text-align: center;
 }
 .icon i {
-  border: 1px solid red;
   cursor: pointer;
 }
 .wrapper .text {
-  font-size:  20px;
+  font-size: 20px;
   color: #5b5b7b;
   font-weight: 500;
 }
@@ -62,17 +61,13 @@
   font-size: 20px;
   cursor: pointer;
   color: #9658fe;
-  display: none;
 }
 
-.wrapper.active:hover .cancel_btn {
-  display: block;
-}
 .wrapper .cancel_btn:hover {
   color: #e74c3c;
 }
 
-.wrapper .file_name{
+.wrapper .file_name {
   position: absolute;
   top: 0;
   width: 100%;
@@ -86,7 +81,7 @@
   display: none;
 }
 
-.wrapper .text_area{
+.wrapper .text_area {
   position: absolute;
   bottom: 0px;
   width: 100%;
@@ -95,25 +90,24 @@
   background: linear-gradient(135deg, #3a8ffe 0%, #9658fe 100%);
   color: white;
   height: 50px;
+  text-align: center;
   display: none;
-  text-align: center;
-
 }
 
-.wrapper.active:hover .text_area {
-  display: block;
-}
-
-.wrapper .text_area::placeholder{
+.wrapper .text_area::placeholder {
   color: white;
-  opacity: .7;
+  opacity: 0.8;
   text-align: center;
-  font-size: 30px;
+  font-size: 14px;
   margin-left: 10px;
 }
 
-.wrapper.active:hover .file_name {
-  display: block;
+.wrapper .file_name::placeholder {
+  color: white;
+  opacity: 0.8;
+  text-align: center;
+  font-size: 18px;
+  margin-left: 10px;
 }
 
 .default_btn {
@@ -143,4 +137,35 @@
   text-transform: uppercase;
   cursor: pointer;
   background: linear-gradient(135deg, #3a8ffe 0%, #9658fe 100%);
+}
+
+.select {
+  width: 100%;
+  min-width: 15ch;
+  max-width: 30ch;
+  border: 1px solid black;
+  border-radius: 0.25em;
+  padding: 0.25em 0.5em;
+  font-size: 1.25rem;
+  cursor: pointer;
+  line-height: 1.1;
+  background-color: #fff;
+  background-image: linear-gradient(to top, #f9f9f9, #fff 33%);
+  display: none;
+}
+
+.custom_select {
+  margin-bottom: 10px;
+}
+
+.wrapper .selectAppear {
+  display: block;
+}
+
+.selectAppear {
+  display: grid;
+}
+
+.container .closeChoose {
+  display: none;
 }
