@@ -43,10 +43,10 @@ router.post(
     const tag = await Tag.create({
       photoId: carImage.id,
       tagNameId,
-    })
+    });
     return res.json({
       carImage,
-      tag
+      tag,
     });
   })
 );
@@ -68,18 +68,16 @@ router.get(
 );
 
 router.get(
-  '/:id/tags',
-  asyncHandler(async(req, res) => {
+  "/:id/tags",
+  asyncHandler(async (req, res) => {
     const photo = await Photo.findByPk(req.params.id, {
-      include:
-        {
-          model: TagName
-        }
-    })
-    return res.json(photo)
+      include: {
+        model: TagName,
+      },
+    });
+    return res.json(photo);
   })
-)
-
+);
 
 router.patch(
   "/:photoId/tags",
@@ -88,27 +86,42 @@ router.patch(
     const photoId = parseInt(req.params.photoId, 10);
     const { title, description, tagNameId } = req.body;
     const newImage = await Photo.findByPk(photoId, {
-      include:
-      {
-        model: TagName
+      include: {
+        model: TagName,
+      },
+    });
+    const newTag = await Tag.findOne({
+      where: {
+        photoId
       }
     });
-    const edit = { title, description, tagNameId };
+    const newTagEdit = {tagNameId, photoId}
+    const edit = { title, description };
+    await newTag.update(newTagEdit)
     await newImage.update(edit);
-    return res.json(newImage);
+    const finalImage = await Photo.findByPk(photoId, {
+      include: {
+        model: TagName,
+      },
+    })
+    return res.json(finalImage);
   })
 );
 
 router.delete(
-  '/:photoId',
-  asyncHandler(async(req, res) => {
+  "/:photoId",
+  asyncHandler(async (req, res) => {
     const photoId = parseInt(req.params.photoId, 10);
     const image = await Photo.findByPk(photoId);
+    const imageTag = await Tag.findOne({
+      where: {
+        photoId
+      }
+    })
+    await imageTag.destroy();
     await image.destroy();
-    return res.json({message: 'Image has been deleted'})
+    return res.json({ message: "Image has been deleted" });
   })
-)
-
-
+);
 
 module.exports = router;

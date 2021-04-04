@@ -34,7 +34,8 @@ export const editPhoto = (image) => async (dispatch) => {
   });
   if (res.ok) {
     const updatedImage = await res.json();
-    dispatch(findImage(updatedImage, id));
+    console.log('----------',updatedImage)
+    dispatch(findImage(updatedImage));
     return updatedImage;
   }
 };

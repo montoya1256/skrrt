@@ -37,7 +37,8 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'photoId',
       through: 'Tags',
       otherKey: 'tagNameId',
-      onDelete: 'CASCADE'
+      onDelete: 'CASCADE',
+      allowNull: false
     }
     Photo.belongsToMany(models.TagName, columnMapping)
   };
